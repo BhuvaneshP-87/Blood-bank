@@ -11,6 +11,8 @@ session_start();
         $error= "Wrong email or password. Please try again.";
         header( "location:../login.php?error=".$error);
     }else{
+        $logincall="call insert_loginactivity('$remail','Hospital')";
+        mysqli_query($conn,$logincall);
         $row=mysqli_fetch_array($result);
         $_SESSION['hemail']=$row['hemail'];
         $_SESSION['hname']=$row['hname'];

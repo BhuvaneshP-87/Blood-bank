@@ -122,6 +122,29 @@ INSERT INTO `bloodrequest` (`hid`, `rid`, `bg`, `status`) VALUES
 (1, 2, 'B+', 'Pending');
 
 -- 
+-- Table structure for table 'loginactivity'
+-- 
+
+CREATE TABLE `loginactivity` (
+  `email` varchar(100) NOT NULL,
+  `type` varchar(100) NOT NULL,
+  `logintime` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- 
+-- Stored Procedures
+-- 
+DELIMITER //
+
+CREATE PROCEDURE insert_loginactivity (email varchar(100),type varchar(100))
+ BEGIN
+  INSERT INTO loginactivity(email,type) VALUES(email,type);
+ END;
+//
+
+DELIMITER ;
+
+-- 
 -- Triggers
 -- 
 DELIMITER //

@@ -1,6 +1,10 @@
 <?php 
     session_start();
-
+    require 'file/connection.php';
+    $sql1= "select count(email) from loginactivity where type='Hospital'";
+    $sql2= "select count(email) from loginactivity where type='Receiver'";
+    $result1 = mysqli_fetch_array(mysqli_query($conn, $sql1))[0];
+    $result2 = mysqli_fetch_array(mysqli_query($conn, $sql2))[0];
     ?>
 <!DOCTYPE html>
 <html>
@@ -137,9 +141,36 @@
             </div>
             </div>
         </div>
+        <div class="row mb-5">
+            <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">Activity Graph</div>
+                <div class="card-body">
+                    <div id="chart"></div>
+                </div>
+            </div>
+            </div>
+        </div>
     </div>
-
     <?php require 'footer.php'; ?>
 
 </body>
 </html>
+
+<script>
+$(document).ready(function () {
+    Morris.Bar({
+        element : 'chart',
+        data:[
+            {type:"Hospital", count: <?php echo ($result1); ?>},
+            {type:"Receiver", count: <?php echo ($result2); ?>},
+            ],
+        xkey:'type',
+        ykeys:['count'],
+        labels:['Login Count'],
+        barColors:["#DD2212"],
+        hideHover:'auto',
+        stacked:true
+    });
+});
+</script>
